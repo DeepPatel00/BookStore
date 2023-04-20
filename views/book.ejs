@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Books</title>
+    <link rel="stylesheet" href="/book/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+    <h1>Manage Books</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% books.forEach(book => { %>
+                <tr>
+                    <td><%= book.title %></td>
+                    <td><%= book.author %></td>
+                    <td><%= book.price %></td>
+                    <td>
+                        <a href="/books/edit/<%= book._id %>">Edit</a>
+                        <a href="/books/delete/<%= book._id %>">Delete</a>
+                        <form action="/buy" method="post" style="display: inline;">
+                            <input type="hidden" name="bookId" value="<%= book._id %>">
+                            <button type="submit" class="buy-button">Buy</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    <a href="/books/add">Add New Book</a>
+</body>
+</html>

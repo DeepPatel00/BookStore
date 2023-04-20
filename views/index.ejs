@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Bookstore</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/">Home</a>
+      <% if (!locals.user) { %>
+        <a href="/login">Login</a>
+      <% } else { %>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/logout">Logout</a>
+      <% } %>
+    </nav>
+  </header>
+  <!-- Add this code inside the <main> tag to display the books -->
+  <section>
+    <h2>Books:</h2>
+    <% if (books && books.length > 0) { %>
+      <ul>
+        <% books.forEach(book => { %>
+          <li>
+            <strong><%= book.title %></strong> by <%= book.author %> - $<%= book.price.toFixed(2) %>
+            <form action="/buy" method="post" style="display: inline;">
+              <input type="hidden" name="bookId" value="<%= book._id %>">
+              <button type="submit" class="buy-button">Buy</button>
+            </form>
+          </li>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      <p>No books available.</p>
+    <% } %>
+  </section>
+  <main>
+    <h1>Welcome to the Online Bookstore</h1>
+    <p>Discover our collection of amazing books!</p>
+    <a href="/books">Browse Books</a>
+    <a href="/add-book">Add Book</a>
+  </main>
+  <footer>
+    <p>&copy; <%= new Date().getFullYear() %> Online Bookstore. All rights reserved.</p>
+  </footer>
+</body>
+</html>
